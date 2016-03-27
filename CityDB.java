@@ -6,17 +6,22 @@ import java.sql.*;
 
 public class CityDB{
 
+	//checkingDB (used for tests)
+	public boolean checkDB(String usr, String pwd){
 
+		DBConfig db = new DBConfig(usr,pwd);
+		if(db.connection==null)
+			return false;
+		else
+			return true;
+
+	}
+
+	//main method
 	public static void main(String[] argv){
 
 		//comment out if DB is already populated
-		ParseCSV psv = new ParseCSV();
-
-		//Scanner object
-		Scanner input = new Scanner(System.in);
-
-		//DB object
-		DBConfig db = new DBConfig();
+		//ParseCSV psv = new ParseCSV();
 
 		//variables
 		int operation = 0;
@@ -24,11 +29,20 @@ public class CityDB{
 		Double latInput = 0.0;
 		Double lonInput = 0.0;
 		int cities = 0;
+		String user = "";
+		String password = "";
+
+		//DB Connection
+		DBConfig db = new DBConfig(user,password);
+
+		//Scanner object
+		Scanner input = new Scanner(System.in);
 
 		//input
 		System.out.println("Select your operation:\n1.Search by City Name\n2.Search by Lat/Long Value");
 		operation = input.nextInt();
 
+		//search by city name
 		if(operation==1){
 
 			try{
@@ -59,14 +73,13 @@ public class CityDB{
 			}
 			catch(Exception sqle){
 
+				sqle.printStackTrace();
 				System.out.println("Error in executing SQL query!");
 
-				
-
 			}
-
-
 		}
+
+		//searchnearby cities
 		else if(operation==2){
 
 			//getting input form user
@@ -97,6 +110,8 @@ public class CityDB{
 				System.out.println("Error executing mysql query\n");
 			}	
 		}
+
+		//invalid operation
 		else{
 			System.out.println("Invalid Operation!\n");
 		}

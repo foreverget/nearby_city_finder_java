@@ -9,7 +9,7 @@ public class DBConfig{
 	Connection connection = null;
 
 	//constructor
-	DBConfig(){
+	DBConfig(String usr, String pwd){
 
 		//loading driver
 		try{
@@ -23,7 +23,7 @@ public class DBConfig{
 
 		//making connection
 		try {
-			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/GeoLiteCity","root", "test");
+			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/GeoLiteCity",usr,pwd);
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
